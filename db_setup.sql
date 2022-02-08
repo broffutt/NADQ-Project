@@ -1,33 +1,34 @@
 
 
-CREATE TABLE users (
+CREATE TABLE Users (
     id SERIAL PRIMARY KEY NOT NULL,
     username varchar(25) UNIQUE NOT NULL,
     email varchar(50) NOT NULL,
-    password varchar(50) NOT NULL
+    hashedPassword varchar(50) NOT NULL
 );
 
-CREATE TABLE questions (
+CREATE TABLE Questions (
     id SERIAL PRIMARY KEY NOT NULL,
     content varchar(255) NOT NULL,
-    topic_id integer NOT NULL REFERENCES topics(id),
-    user_id integer NOT NULL REFERENCES users(id)
+    topicId integer NOT NULL REFERENCES Topics(id),
+    userId integer NOT NULL REFERENCES Users(id)
 );
 
-CREATE TABLE answers (
+CREATE TABLE Answers (
     id SERIAL PRIMARY KEY NOT NULL,
     content varchar(500) NOT NULL,
-    question_id INTEGER NOT NULL REFERENCES questions(id),
-    user_id INTEGER NOT NULL REFERENCES users(id)
+    questionId INTEGER NOT NULL REFERENCES Questions(id),
+    userId INTEGER NOT NULL REFERENCES Users(id)
 );
 
-CREATE TABLE topics (
+CREATE TABLE Topics (
     id SERIAL PRIMARY KEY NOT NULL,
     name varchar(50) NOT NULL
 );
 
-CREATE TABLE comments (
+CREATE TABLE Comments (
     id SERIAL PRIMARY KEY NOT NULL,
     content varchar(500) NOT NULL,
-    answer_id INTEGER NOT NULL REFERENCES answers(id)
+    answerId INTEGER NOT NULL REFERENCES Answers(id),
+    userId INTEGER NOT NULL REFERENCES Users(id)
 );
